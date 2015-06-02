@@ -1,6 +1,7 @@
-;; The first three lines of this file were inserted by DrRacket. They record metadata
-;; about the language level of this file in a form that our tools can easily process.
-#reader(lib "htdp-beginner-reader.ss" "lang")((modname archery) (read-case-sensitive #t) (teachpacks ((lib "image.rkt" "teachpack" "2htdp") (lib "universe.rkt" "teachpack" "2htdp"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "image.rkt" "teachpack" "2htdp") (lib "universe.rkt" "teachpack" "2htdp")))))
+#lang whalesong
+(require whalesong/image)
+(require whalesong/world)
+
 ;(define WOOT (bitmap/file "WOOT.png"))
 ;(define WWOOT (bitmap/file "WWOOT.png"))
 ;(define UWOOT (bitmap/file "UWOOT.png"))
@@ -283,7 +284,7 @@
     )450 300 (place-image (text "X" 35 "white")20 20(place-image (rectangle 310 410 "solid"(make-color 205 71 72))450 300(place-image (rectangle 320 420 "solid""white")450 300(place-image(rotate 90 (triangle 20 "solid""white"))
                                                                 (cond
                                                                    [(not(=(world-how-to a-world)1))250]
-                                                                   [else 450])300(place-image(rotate -90 (triangle 20 "solid""white"))
+                                                                   [else 450])300(place-image(rotate 270 (triangle 20 "solid""white"))
                                                                 (cond
                                                                    [(not(=(world-how-to a-world)7))650]
                                                                    [else 450])300(place-image (rectangle 900 600 "solid"(color 0 0 0 107)) 450 300 (draw-score (world-score a-world) a-world(draw-hitpoints-list (world-target a-world)(world-loa a-world)(draw-wind a-world (draw-archer a-world(world-archer a-world)(draw-blinks-try (world-blinks a-world) a-world(draw-arrow-count a-world(draw-blinks (world-blinks a-world)(draw-target (world-target a-world)(draw-loa (world-loa a-world)(world-target a-world)(draw-backround a-world a-scene)))))))))))))))))) 
@@ -303,7 +304,7 @@
     )450 300(place-image (text "Back" 35 "white")69 37.5(place-image (rectangle 120 50 "solid"(make-color 205 71 72))70 35 (place-image (rectangle 130 60 "solid""white")70 35 (place-image (rectangle 310 410 "solid"(make-color 205 71 72))450 300(place-image (rectangle 320 420 "solid""white")450 300(place-image(rotate 90 (triangle 20 "solid""white"))
                                                                 (cond
                                                                    [(not(=(world-how-to a-world)1))250]
-                                                                   [else 450])300(place-image(rotate -90 (triangle 20 "solid""white"))
+                                                                   [else 450])300(place-image(rotate 270 (triangle 20 "solid""white"))
                                                                 (cond
                                                                    [(not(=(world-how-to a-world)7))650]
                                                                    [else 450])300(cond
@@ -394,6 +395,9 @@
     [(eq? (world-count a-world) 1)(place-image ARROW 151 332 a-scene)] 
     [else a-scene])) 
 
+(define (trim x)
+  (/ (round (* 100 x)) 100))
+
 ;draw-arrow: arrow target scene -> scene
 ;consumes a arrow, a target and a scene and draws the arrows on the scene
 (define (draw-arrow a-arrow a-target a-scene)   
@@ -404,7 +408,7 @@
                                                        [(=(arrow-angle a-arrow)5)"5.00"]
                                                        [(=(arrow-angle a-arrow)9.9)"9.90"]
                                                        [(>=(arrow-angle a-arrow)10)"10.00"] 
-                                                       [else(number->string(exact->inexact(arrow-angle a-arrow)))])38 "white")(+ 410(*(string-length(number->string(exact->inexact(arrow-angle a-arrow)))).5)) 266(place-image (rectangle 97 40 "solid""black")412 265(place-image ARROW (arrow-x a-arrow)(arrow-y a-arrow) (cond
+                                                       [else(number->string(trim(arrow-angle a-arrow)))])38 "white")(+ 410(*(string-length(number->string(exact->inexact(arrow-angle a-arrow)))).5)) 266(place-image (rectangle 97 40 "solid""black")412 265(place-image ARROW (arrow-x a-arrow)(arrow-y a-arrow) (cond
                                                                  [(and (>(arrow-bounce-timer a-arrow)5)(>=(arrow-score a-arrow)0))(place-image (text(number->string(round(arrow-score a-arrow)))37 "white")(+ 601(*(string-length(number->string(arrow-score a-arrow))).5))563 a-scene)]
                                                                  [else a-scene])))))]
     [(or (>(arrow-x a-arrow)920)(collision? a-arrow a-target))(place-image (text (cond
@@ -412,7 +416,7 @@
                                                        [(=(arrow-angle a-arrow)5)"5.00"]
                                                        [(=(arrow-angle a-arrow)9.9)"9.90"]
                                                        [(>=(arrow-angle a-arrow)10)"10.00"] 
-                                                       [else(number->string(exact->inexact(arrow-angle a-arrow)))])38 "white")(+ 410(*(string-length(number->string(exact->inexact(arrow-angle a-arrow)))).5)) 266(place-image (rectangle 97 40 "solid""black")412 265(place-image (rectangle 100 10 "solid""black")890 205(place-image (rectangle 100 400 "solid""yellowgreen")890 400(place-image ARROW (arrow-x a-arrow)(arrow-y a-arrow) (cond
+                                                       [else(number->string(trim(arrow-angle a-arrow)))])38 "white")(+ 410(*(string-length(number->string(exact->inexact(arrow-angle a-arrow)))).5)) 266(place-image (rectangle 97 40 "solid""black")412 265(place-image (rectangle 100 10 "solid""black")890 205(place-image (rectangle 100 400 "solid""yellowgreen")890 400(place-image ARROW (arrow-x a-arrow)(arrow-y a-arrow) (cond
                                                                  [(and (>(arrow-bounce-timer a-arrow)5)(>=(arrow-score a-arrow)0))(place-image (text(number->string(round(arrow-score a-arrow)))37 "white")(+ 601(*(string-length(number->string(arrow-score a-arrow))).5))563 a-scene)]
                                                                  [else a-scene]))))))]
     [(=(arrow-score a-arrow)600)(place-image NICE 450 300(place-image (text (cond
@@ -421,7 +425,7 @@
                                                        [(=(arrow-angle a-arrow)5)"5.00"]
                                                        [(=(arrow-angle a-arrow)9.9)"9.90"]
                                                        [(>=(arrow-angle a-arrow)10)"10.00"] 
-                                                       [else(number->string(exact->inexact(arrow-angle a-arrow)))])38 "white")(+ 410(*(string-length(number->string(exact->inexact(arrow-angle a-arrow)))).5)) 266(place-image (rectangle 97 40 "solid""black")412 265(place-image ARROW (arrow-x a-arrow)(arrow-y a-arrow) (cond
+                                                       [else(number->string(trim(arrow-angle a-arrow)))])38 "white")(+ 410(*(string-length(number->string(exact->inexact(arrow-angle a-arrow)))).5)) 266(place-image (rectangle 97 40 "solid""black")412 265(place-image ARROW (arrow-x a-arrow)(arrow-y a-arrow) (cond
                                                                  [(and (>(arrow-bounce-timer a-arrow)5)(>=(arrow-score a-arrow)0))(place-image (text(number->string(round(arrow-score a-arrow)))37 "white")(+ 601(*(string-length(number->string(arrow-score a-arrow))).5))563 a-scene)]
                                                                  [else a-scene])))))]
     [else(place-image (text (cond
@@ -430,7 +434,7 @@
                                                        [(=(arrow-angle a-arrow)5)"5.00"]
                                                        [(=(arrow-angle a-arrow)9.9)"9.90"]
                                                        [(>=(arrow-angle a-arrow)10)"10.00"] 
-                                                       [else(number->string(exact->inexact(arrow-angle a-arrow)))])38 "white")(+ 410(*(string-length(number->string(exact->inexact(arrow-angle a-arrow)))).5)) 266(place-image (rectangle 97 40 "solid""black")412 265(place-image ARROW (arrow-x a-arrow)(arrow-y a-arrow) (cond
+                                                       [else(number->string(trim(arrow-angle a-arrow)))])38 "white")(+ 410(*(string-length(number->string(exact->inexact(arrow-angle a-arrow)))).5)) 266(place-image (rectangle 97 40 "solid""black")412 265(place-image ARROW (arrow-x a-arrow)(arrow-y a-arrow) (cond
                                                                  [(and (>(arrow-bounce-timer a-arrow)5)(>=(arrow-score a-arrow)0))(place-image (text(number->string(round(arrow-score a-arrow)))37 "white")(+ 601(*(string-length(number->string(arrow-score a-arrow))).5))563 a-scene)]
                                                                  [else a-scene]))))]))   
 ;draw-arrow-block: arrow scene -> scene
@@ -2082,6 +2086,6 @@
   (or(and (world-1p? a-world)(=(world-try a-world)4))(and(world-2p? a-world)(=(world-try a-world)7))))
      
   (big-bang IW
-          (on-draw draw-world)
+          (to-draw draw-world)
           (on-tick update-world (/ 1.0 28))  
           (on-mouse process-mouse))
