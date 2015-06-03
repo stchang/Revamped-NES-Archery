@@ -284,7 +284,7 @@
     )450 300 (place-image (text "X" 35 "white")20 20(place-image (rectangle 310 410 "solid"(make-color 205 71 72))450 300(place-image (rectangle 320 420 "solid""white")450 300(place-image(rotate 90 (triangle 20 "solid""white"))
                                                                 (cond
                                                                    [(not(=(world-how-to a-world)1))250]
-                                                                   [else 450])300(place-image(rotate 270 (triangle 20 "solid""white"))
+                                                                   [else 450])300(place-image(rotate -90 (triangle 20 "solid""white"))
                                                                 (cond
                                                                    [(not(=(world-how-to a-world)7))650]
                                                                    [else 450])300(place-image (rectangle 900 600 "solid"(color 0 0 0 107)) 450 300 (draw-score (world-score a-world) a-world(draw-hitpoints-list (world-target a-world)(world-loa a-world)(draw-wind a-world (draw-archer a-world(world-archer a-world)(draw-blinks-try (world-blinks a-world) a-world(draw-arrow-count a-world(draw-blinks (world-blinks a-world)(draw-target (world-target a-world)(draw-loa (world-loa a-world)(world-target a-world)(draw-backround a-world a-scene)))))))))))))))))) 
@@ -304,7 +304,7 @@
     )450 300(place-image (text "Back" 35 "white")69 37.5(place-image (rectangle 120 50 "solid"(make-color 205 71 72))70 35 (place-image (rectangle 130 60 "solid""white")70 35 (place-image (rectangle 310 410 "solid"(make-color 205 71 72))450 300(place-image (rectangle 320 420 "solid""white")450 300(place-image(rotate 90 (triangle 20 "solid""white"))
                                                                 (cond
                                                                    [(not(=(world-how-to a-world)1))250]
-                                                                   [else 450])300(place-image(rotate 270 (triangle 20 "solid""white"))
+                                                                   [else 450])300(place-image(rotate -90 (triangle 20 "solid""white"))
                                                                 (cond
                                                                    [(not(=(world-how-to a-world)7))650]
                                                                    [else 450])300(cond
